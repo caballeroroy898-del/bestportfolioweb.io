@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROY H. CABALLERO - Programmer & Analyst</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap');
+        
+        * {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            overflow-x: hidden;
+        }
+        
+        .orbitron {
+            font-family: 'Orbitron', monospace;
+        }
+        
+        /* Animated background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #00d4ff;
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+        
+        /* Glowing effects */
+        .glow {
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+        
+        .glow-text {
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
+        }
+        
+        /* Holographic card effect */
+        .holo-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .holo-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
+        }
+        
+        /* Typing animation */
+        .typing {
+            border-right: 2px solid #00d4ff;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { border-color: transparent; }
+            51%, 100% { border-color: #00d4ff; }
+        }
+        
+        /* Matrix rain effect */
+        .matrix-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        
+        /* Skill bars animation */
+        .skill-bar {
+            background: linear-gradient(90deg, #00d4ff 0%, #0099cc  100%);
+            height: 8px;
+            border-radius: 4px;
+            animation: fillBar 2s ease-out;
+        }
+        
+        @keyframes fillBar {
+            from { width: 0%; }
+        }
+        
+        /* Floating elements */
+        .float {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        /* Neon button */
+        .neon-btn {
+            background: transparent;
+            border: 2px solid #00d4ff;
+            color: #00d4ff;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .neon-btn:hover {
+            background: #00d4ff;
+            color: #0c0c0c;
+            box-shadow: 0 0 30px #00d4ff;
+        }
+        
+        .neon-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .neon-btn:hover::before {
+            left: 100%;
+        }
+        
+        /* Terminal window */
+        .terminal {
+            background: #0c0c0c;
+            border: 1px solid #333;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .terminal-header {
+            background: #1a1a1a;
+            padding: 10px;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Progress circle */
+        .progress-circle {
+            transform: rotate(-90deg);
+        }
+        
+        .progress-circle circle {
+            fill: none;
+            stroke-width: 8;
+            stroke-linecap: round;
+        }
+        
+        .progress-bg {
+            stroke: rgba(255,255,255,0.1);
+        }
+        
+        .progress-bar {
+            stroke: #00d4ff;
+            stroke-dasharray: 283;
+            stroke-dashoffset: 283;
+            animation: progress 2s ease-out forwards;
+        }
+        
+        @keyframes progress {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+        
+        /* Mini particle system for avatar */
+        .mini-particle {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            background: #00d4ff;
+            border-radius: 50%;
+            animation: miniFloat 4s infinite linear;
+        }
+        
+        @keyframes miniFloat {
+            0% { transform: translateY(120px) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-10px) rotate(360deg); opacity: 0; }
+        }
+        
+        /* Binary rain effect */
+        .binary-rain {
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: #00d4ff;
+            pointer-events: none;
+        }
+        
+        .binary-column {
+            position: absolute;
+            top: -100px;
+            animation: binaryFall linear infinite;
+            white-space: nowrap;
+            line-height: 1.2;
+        }
+        
+        @keyframes binaryFall {
+            0% { transform: translateY(-100px); opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="text-white">
+    <!-- Animated particles background -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-black bg-opacity-50 backdrop-blur-lg border-b border-gray-800">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="orbitron text-2xl font-bold glow-text">Cabs.DEV</div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="hover:text-cyan-400 transition-colors">Home</a>
+                    <a href="#about" class="hover:text-cyan-400 transition-colors">About</a>
+                    <a href="#skills" class="hover:text-cyan-400 transition-colors">Skills</a>
+                    <a href="#projects" class="hover:text-cyan-400 transition-colors">Projects</a>
+                    <a href="#contact" class="hover:text-cyan-400 transition-colors">Contact</a>
+                </div>
+                <button class="md:hidden text-cyan-400" onclick="toggleMobileMenu()">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-95 z-40 hidden">
+        <div class="flex flex-col items-center justify-center h-full space-y-8 text-2xl">
+            <a href="#home" onclick="toggleMobileMenu()" class="hover:text-cyan-400 transition-colors">Home</a>
+            <a href="#about" onclick="toggleMobileMenu()" class="hover:text-cyan-400 transition-colors">About</a>
+            <a href="#skills" onclick="toggleMobileMenu()" class="hover:text-cyan-400 transition-colors">Skills</a>
+            <a href="#projects" onclick="toggleMobileMenu()" class="hover:text-cyan-400 transition-colors">Projects</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="hover:text-cyan-400 transition-colors">Contact</a>
+        </div>
+    </div>
+    
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden">
+        <!-- Binary Background -->
+        <div class="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-800">
+            <div class="binary-rain absolute inset-0 opacity-20"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black/70"></div>
+        </div>
+        <div class="text-center z-10 relative">
+            <div class="float mb-8">
+                <div class="w-32 h-32 mx-auto rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 p-1 glow">
+                    <div class="w-full h-full rounded-full bg-gray-900 flex items-center justify-center relative overflow-hidden">
+                        <div class="mini-particles absolute inset-0"></div>
+                        <span class="text-4xl relative z-10">👨‍💻</span>
+                    </div>
+                </div>
+            </div>
+            <h1 class="orbitron text-6xl md:text-8xl font-black mb-4 glow-text">
+                ROY H. CABALLERO
+            </h1>
+            <div class="text-2xl md:text-3xl mb-8 h-12">
+                <span id="typewriter" class="typing"></span>
+            </div>
+            <p class="text-xl mb-12 max-w-2xl mx-auto opacity-80">
+                Crafting intelligent solutions through code and data analysis. 
+                Transforming complex problems into elegant digital experiences.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="neon-btn px-8 py-3 rounded-lg orbitron font-semibold" onclick="scrollToSection('projects')">
+                    VIEW PROJECTS
+                </button>
+                <button class="neon-btn px-8 py-3 rounded-lg orbitron font-semibold" onclick="downloadResume()">
+                    DOWNLOAD CV
+                </button>
+            </div>
+        </div>
+        
+        <!-- Floating geometric shapes -->
+        <div class="absolute top-20 left-10 w-20 h-20 border-2 border-cyan-400 rotate-45 float opacity-30"></div>
+        <div class="absolute bottom-20 right-10 w-16 h-16 border-2 border-blue-400 rounded-full float opacity-30" style="animation-delay: 1s;"></div>
+        <div class="absolute top-1/2 left-20 w-12 h-12 bg-gradient-to-r from-cyan-400 to-transparent rotate-12 float opacity-20" style="animation-delay: 2s;"></div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="orbitron text-5xl font-bold text-center mb-16 glow-text fade-in">ABOUT ME</h2>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in">
+                    <div class="holo-card p-8 rounded-2xl">
+                        <h3 class="orbitron text-2xl font-bold mb-6 text-cyan-400">Professional Journey</h3>
+                        <p class="text-lg mb-6 leading-relaxed">
+                            With over 5 years of experience in software development and data analysis, 
+                            I specialize in creating innovative solutions that bridge the gap between 
+                            complex data insights and user-friendly applications.
+                        </p>
+                        <p class="text-lg mb-6 leading-relaxed">
+                            My expertise spans full-stack development, machine learning, and business 
+                            intelligence, allowing me to deliver comprehensive solutions that drive 
+                            real business value.
+                        </p>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="px-3 py-1 bg-cyan-400 bg-opacity-20 rounded-full text-cyan-400 text-sm">Problem Solver</span>
+                            <span class="px-3 py-1 bg-blue-400 bg-opacity-20 rounded-full text-blue-400 text-sm">Innovation Driven</span>
+                            <span class="px-3 py-1 bg-purple-400 bg-opacity-20 rounded-full text-purple-400 text-sm">Team Leader</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="fade-in">
+                    <div class="terminal">
+                        <div class="terminal-header">
+                            <div class="terminal-dot bg-red-500"></div>
+                            <div class="terminal-dot bg-yellow-500"></div>
+                            <div class="terminal-dot bg-green-500"></div>
+                            <span class="text-gray-400 ml-4">roy@portfolio:~$</span>
+                        </div>
+                        <div class="p-6 text-green-400">
+                            <div class="mb-2">$ cat personal_info.json</div>
+                            <div class="text-white ml-4">
+                                {<br>
+                                &nbsp;&nbsp;"name": "ROY H. CABALLERO",<br>
+                                &nbsp;&nbsp;"role": "Programmer & Analyst",<br>
+                                &nbsp;&nbsp;"location": "San Francisco, CA",<br>
+                                &nbsp;&nbsp;"experience": "5+ years",<br>
+                                &nbsp;&nbsp;"languages": ["Python", "JavaScript", "SQL"],<br>
+                                &nbsp;&nbsp;"interests": ["AI/ML", "Data Viz", "Web Dev"],<br>
+                                &nbsp;&nbsp;"status": "Available for projects"<br>
+                                }
+                            </div>
+                            <div class="mt-4 text-green-400">$ █</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="orbitron text-5xl font-bold text-center mb-16 glow-text fade-in">SKILLS & EXPERTISE</h2>
+            
+            <!-- Technical Skills -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                <div class="holo-card p-6 rounded-xl fade-in">
+                    <div class="text-center mb-6">
+                        <div class="w-24 h-24 mx-auto mb-4 relative">
+                            <svg class="progress-circle w-24 h-24">
+                                <circle class="progress-bg" cx="48" cy="48" r="45"></circle>
+                                <circle class="progress-bar" cx="48" cy="48" r="45" style="stroke-dashoffset: 56.5;"></circle>
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <span class="orbitron text-lg font-bold">90%</span>
+                            </div>
+                        </div>
+                        <h3 class="orbitron text-xl font-bold text-cyan-400">Python</h3>
+                    </div>
+                    <p class="text-center text-sm opacity-80">Advanced proficiency in Python for data analysis, ML, and backend development</p>
+                </div>
+                
+                <div class="holo-card p-6 rounded-xl fade-in">
+                    <div class="text-center mb-6">
+                        <div class="w-24 h-24 mx-auto mb-4 relative">
+                            <svg class="progress-circle w-24 h-24">
+                                <circle class="progress-bg" cx="48" cy="48" r="45"></circle>
+                                <circle class="progress-bar" cx="48" cy="48" r="45" style="stroke-dashoffset: 84.9;"></circle>
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <span class="orbitron text-lg font-bold">85%</span>
+                            </div>
+                        </div>
+                        <h3 class="orbitron text-xl font-bold text-cyan-400">JavaScript</h3>
+                    </div>
+                    <p class="text-center text-sm opacity-80">Expert in modern JS, React, Node.js, and frontend frameworks</p>
+                </div>
+                
+                <div class="holo-card p-6 rounded-xl fade-in">
+                    <div class="text-center mb-6">
+                        <div class="w-24 h-24 mx-auto mb-4 relative">
+                            <svg class="progress-circle w-24 h-24">
+                                <circle class="progress-bg" cx="48" cy="48" r="45"></circle>
+                                <circle class="progress-bar" cx="48" cy="48" r="45" style="stroke-dashoffset: 113.2;"></circle>
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <span class="orbitron text-lg font-bold">80%</span>
+                            </div>
+                        </div>
+                        <h3 class="orbitron text-xl font-bold text-cyan-400">Data Analysis</h3>
+                    </div>
+                    <p class="text-center text-sm opacity-80">Statistical analysis, visualization, and business intelligence</p>
+                </div>
+                
+                <div class="holo-card p-6 rounded-xl fade-in">
+                    <div class="text-center mb-6">
+                        <div class="w-24 h-24 mx-auto mb-4 relative">
+                            <svg class="progress-circle w-24 h-24">
+                                <circle class="progress-bg" cx="48" cy="48" r="45"></circle>
+                                <circle class="progress-bar" cx="48" cy="48" r="45" style="stroke-dashoffset: 141.5;"></circle>
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <span class="orbitron text-lg font-bold">75%</span>
+                            </div>
+                        </div>
+                        <h3 class="orbitron text-xl font-bold text-cyan-400">Machine Learning</h3>
+                    </div>
+                    <p class="text-center text-sm opacity-80">TensorFlow, scikit-learn, deep learning, and AI model development</p>
+                </div>
+                
+                <div class="holo-card p-6 rounded-xl fade-in">
+                    <div class="text-center mb-6">
+                        <div class="w-24 h-24 mx-auto mb-4 relative">
+                            <svg class="progress-circle w-24 h-24">
+                                <circle class="progress-bg" cx="48" cy="48" r="45"></circle>
+                                <circle class="progress-bar" cx="48" cy="48" r="45" style="stroke-dashoffset: 113.2;"></circle>
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <span class="orbitron text-lg font-bold">80%</span>
+                            </div>
+                        </div>
+                        <h3 class="orbitron text-xl font-bold text-cyan-400">Cloud & DevOps</h3>
+                    </div>
+                    <p class="text-center text-sm opacity-80">AWS, Docker, CI/CD, and scalable infrastructure management</p>
+                </div>
+                
+                <div class="holo-card p-6 rounded-xl fade-in">
+                    <div class="text-center mb-6">
+                        <div class="w-24 h-24 mx-auto mb-4 relative">
+                            <svg class="progress-circle w-24 h-24">
+                                <circle class="progress-bg" cx="48" cy="48" r="45"></circle>
+                                <circle class="progress-bar" cx="48" cy="48" r="45" style="stroke-dashoffset: 84.9;"></circle>
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <span class="orbitron text-lg font-bold">85%</span>
+                            </div>
+                        </div>
+                        <h3 class="orbitron text-xl font-bold text-cyan-400">Database Systems</h3>
+                    </div>
+                    <p class="text-center text-sm opacity-80">SQL, NoSQL, data modeling, and performance optimization</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="orbitron text-5xl font-bold text-center mb-16 glow-text fade-in">FEATURED PROJECTS</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="holo-card rounded-xl overflow-hidden fade-in group">
+                    <div class="h-48 bg-gradient-to-br from-cyan-400 to-blue-600 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <svg class="w-20 h-20 text-white opacity-80" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"></path>
+                            </svg>
+                        </div>
+                        <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="orbitron text-xl font-bold mb-3 text-cyan-400">AI Analytics Dashboard</h3>
+                        <p class="text-sm opacity-80 mb-4">Real-time business intelligence platform with machine learning insights and predictive analytics.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-cyan-400 bg-opacity-20 rounded text-xs text-cyan-400">Python</span>
+                            <span class="px-2 py-1 bg-blue-400 bg-opacity-20 rounded text-xs text-blue-400">React</span>
+                            <span class="px-2 py-1 bg-purple-400 bg-opacity-20 rounded text-xs text-purple-400">TensorFlow</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <button class="flex-1 neon-btn py-2 px-4 rounded text-sm" onclick="viewProject('ai-dashboard')">View Demo</button>
+                            <button class="flex-1 neon-btn py-2 px-4 rounded text-sm" onclick="viewCode('ai-dashboard')">Source Code</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="holo-card rounded-xl overflow-hidden fade-in group">
+                    <div class="h-48 bg-gradient-to-br from-purple-400 to-pink-600 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <svg class="w-20 h-20 text-white opacity-80" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="orbitron text-xl font-bold mb-3 text-purple-400">Blockchain Trading Bot</h3>
+                        <p class="text-sm opacity-80 mb-4">Automated cryptocurrency trading system with advanced algorithms and risk management.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-purple-400 bg-opacity-20 rounded text-xs text-purple-400">Node.js</span>
+                            <span class="px-2 py-1 bg-yellow-400 bg-opacity-20 rounded text-xs text-yellow-400">WebSocket</span>
+                            <span class="px-2 py-1 bg-green-400 bg-opacity-20 rounded text-xs text-green-400">MongoDB</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <button class="flex-1 neon-btn py-2 px-4 rounded text-sm" onclick="viewProject('trading-bot')">View Demo</button>
+                            <button class="flex-1 neon-btn py-2 px-4 rounded text-sm" onclick="viewCode('trading-bot')">Source Code</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="holo-card rounded-xl overflow-hidden fade-in group">
+                    <div class="h-48 bg-gradient-to-br from-green-400 to-teal-600 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <svg class="w-20 h-20 text-white opacity-80" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="orbitron text-xl font-bold mb-3 text-green-400">Smart IoT Platform</h3>
+                        <p class="text-sm opacity-80 mb-4">Enterprise IoT management system with real-time monitoring and predictive maintenance.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-green-400 bg-opacity-20 rounded text-xs text-green-400">Python</span>
+                            <span class="px-2 py-1 bg-orange-400 bg-opacity-20 rounded text-xs text-orange-400">AWS IoT</span>
+                            <span class="px-2 py-1 bg-red-400 bg-opacity-20 rounded text-xs text-red-400">Redis</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <button class="flex-1 neon-btn py-2 px-4 rounded text-sm" onclick="viewProject('iot-platform')">View Demo</button>
+                            <button class="flex-1 neon-btn py-2 px-4 rounded text-sm" onclick="viewCode('iot-platform')">Source Code</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="orbitron text-5xl font-bold text-center mb-16 glow-text fade-in">GET IN TOUCH</h2>
+            
+            <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+                <!-- Contact Info -->
+                <div class="fade-in">
+                    <div class="holo-card p-8 rounded-2xl">
+                        <h3 class="orbitron text-2xl font-bold mb-8 text-cyan-400">Let's Connect</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-cyan-400 bg-opacity-20 rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-cyan-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-gray-400 text-sm">Email</p>
+                                    <p class="text-white">roy.caballero@example.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-blue-400 bg-opacity-20 rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M7 2a2 2 0 00-2 2v12a2 2 0 002 2h6a2 2 0 002-2V4a2 2 0 00-2-2H7zm3 14a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-gray-400 text-sm">Phone</p>
+                                    <p class="text-white">+1 (555) 123-4567</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-purple-400 bg-opacity-20 rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-purple-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-gray-400 text-sm">Location</p>
+                                    <p class="text-white">San Francisco, CA</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 pt-8 border-t border-gray-700">
+                            <p class="text-gray-400 mb-4">Follow me on social media</p>
+                            <div class="flex space-x-4">
+                                <button class="w-10 h-10 bg-blue-600 bg-opacity-20 rounded-lg flex items-center justify-center hover:bg-opacity-40 transition-colors" onclick="openSocial('linkedin')">
+                                    <svg class="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </button>
+                                <button class="w-10 h-10 bg-gray-600 bg-opacity-20 rounded-lg flex items-center justify-center hover:bg-opacity-40 transition-colors" onclick="openSocial('github')">
+                                    <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </button>
+                                <button class="w-10 h-10 bg-blue-400 bg-opacity-20 rounded-lg flex items-center justify-center hover:bg-opacity-40 transition-colors" onclick="openSocial('twitter')">
+                                    <svg class="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M6.29 18.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0020 3.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.073 4.073 0 01.8 7.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 010 16.407a11.616 11.616 0 006.29 1.84"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div class="fade-in">
+                    <div class="holo-card p-8 rounded-2xl">
+                        <h3 class="orbitron text-2xl font-bold mb-8 text-cyan-400">Send Message</h3>
+                        <form onsubmit="sendMessage(event)" class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Name</label>
+                                <input type="text" required class="w-full px-4 py-3 bg-black bg-opacity-50 border border-gray-600 rounded-lg focus:border-cyan-400 focus:outline-none transition-colors" placeholder="Your Name">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Email</label>
+                                <input type="email" required class="w-full px-4 py-3 bg-black bg-opacity-50 border border-gray-600 rounded-lg focus:border-cyan-400 focus:outline-none transition-colors" placeholder="your.email@example.com">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Subject</label>
+                                <input type="text" required class="w-full px-4 py-3 bg-black bg-opacity-50 border border-gray-600 rounded-lg focus:border-cyan-400 focus:outline-none transition-colors" placeholder="Project Inquiry">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Message</label>
+                                <textarea required rows="5" class="w-full px-4 py-3 bg-black bg-opacity-50 border border-gray-600 rounded-lg focus:border-cyan-400 focus:outline-none transition-colors resize-none" placeholder="Tell me about your project..."></textarea>
+                            </div>
+                            <button type="submit" class="w-full neon-btn py-3 px-6 rounded-lg orbitron font-semibold">
+                                SEND MESSAGE
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="py-8 border-t border-gray-800">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-400">© 2024 ROY H. CABALLERO. All rights reserved. Built with passion and code.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Particle system
+        function createParticles() {
+            const particles = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particles.appendChild(particle);
+            }
+        }
+        
+        // Mini particle system for avatar
+        function createMiniParticles() {
+            const miniParticlesContainer = document.querySelector('.mini-particles');
+            if (miniParticlesContainer) {
+                for (let i = 0; i < 15; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'mini-particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.animationDelay = Math.random() * 4 + 's';
+                    particle.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                    miniParticlesContainer.appendChild(particle);
+                }
+            }
+        }
+        
+        // Binary rain effect
+        function createBinaryRain() {
+            const binaryContainer = document.querySelector('.binary-rain');
+            if (binaryContainer) {
+                const columns = Math.floor(window.innerWidth / 20);
+                
+                for (let i = 0; i < columns; i++) {
+                    const column = document.createElement('div');
+                    column.className = 'binary-column';
+                    column.style.left = (i * 20) + 'px';
+                    column.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    column.style.animationDelay = Math.random() * 2 + 's';
+                    
+                    // Generate random binary string
+                    let binaryString = '';
+                    for (let j = 0; j < 50; j++) {
+                        binaryString += Math.random() > 0.5 ? '1' : '0';
+                        if (j % 8 === 7) binaryString += '<br>';
+                    }
+                    column.innerHTML = binaryString;
+                    
+                    binaryContainer.appendChild(column);
+                }
+            }
+        }
+        
+        // Typewriter effect
+        const texts = ['Programmer & Analyst', 'Data Scientist', 'Full-Stack Developer', 'AI Enthusiast'];
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        
+        function typeWriter() {
+            const currentText = texts[textIndex];
+            const typewriterElement = document.getElementById('typewriter');
+            
+            if (isDeleting) {
+                typewriterElement.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typewriterElement.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+            }
+            
+            let typeSpeed = isDeleting ? 50 : 100;
+            
+            if (!isDeleting && charIndex === currentText.length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                typeSpeed = 500;
+            }
+            
+            setTimeout(typeWriter, typeSpeed);
+        }
+        
+        // Scroll animations
+        function handleScrollAnimations() {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+        
+        // Smooth scrolling
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+        
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        }
+        
+        // Project interactions
+        function viewProject(projectId) {
+            alert(`Opening demo for ${projectId}. This would typically open a live demo or detailed project page.`);
+        }
+        
+        function viewCode(projectId) {
+            alert(`Opening source code for ${projectId}. This would typically open the GitHub repository.`);
+        }
+        
+        // Social media links
+        function openSocial(platform) {
+            const urls = {
+                linkedin: 'https://linkedin.com/in/roycaballero',
+                github: 'https://github.com/roycaballero',
+                twitter: 'https://twitter.com/roycaballero'
+            };
+            window.open(urls[platform], '_blank');
+        }
+        
+        // Contact form
+        function sendMessage(event) {
+            event.preventDefault();
+            alert('Thank you for your message! This is a demo form. In a real implementation, this would send your message via email or contact API.');
+        }
+        
+        // Resume download
+        function downloadResume() {
+            alert('Resume download initiated! In a real implementation, this would download the actual CV file.');
+        }
+        
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            createMiniParticles();
+            createBinaryRain();
+            typeWriter();
+            handleScrollAnimations();
+            
+            // Add scroll event listener
+            window.addEventListener('scroll', handleScrollAnimations);
+            
+            // Add smooth scrolling to navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97fe30c3141bbc4f',t:'MTc1ODAwMjkxOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
